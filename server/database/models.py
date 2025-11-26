@@ -13,7 +13,6 @@ class Employee(db.Model):
     id_cit: Mapped[int] = mapped_column(db.ForeignKey("citizenship.id_cit"), nullable=False)
     id_edu: Mapped[int] = mapped_column(db.ForeignKey("education.id_edu"), nullable=False)
     
-    
 class Report(db.Model):
     __tablename__ = "report"
     

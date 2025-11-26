@@ -43,7 +43,7 @@ def load_config():
             SECRET_KEY=env("SECRET_KEY")
         ),
         db=DatabaseConfig(
-            DATABASE_URI = f"sqlite:///{PROJECT_DIR / "server" / "database" / "cardes.db"}"
+            DATABASE_URI = f"sqlite:///{PROJECT_DIR / "server" / "database" / "register.db"}"
         ),
         var=Var(
             PER_PAGE=20
