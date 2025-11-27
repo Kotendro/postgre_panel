@@ -1,6 +1,6 @@
 from flask import Flask
 from .config import load_config, Config
-from .routes import core
+from .routes import employee, education, citizenship, home
 from .database import db
 
 def create_app() -> Flask:
@@ -19,7 +19,10 @@ def create_app() -> Flask:
     with app.app_context():
         db.create_all()
     
-    app.register_blueprint(core)
+    app.register_blueprint(home)
+    app.register_blueprint(employee)
+    app.register_blueprint(citizenship)
+    app.register_blueprint(education)
     
     return app
 

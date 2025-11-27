@@ -45,5 +45,5 @@ class Position(db.Model):
     __tablename__ = "position"
     
     id_pos: Mapped[int] = mapped_column(primary_key=True)
-    name_pos: mapped_column[str] = mapped_column(nullable=False, unique=True)
+    name_pos: Mapped[str] = mapped_column(nullable=False, unique=True)
     salary: Mapped[float] = mapped_column(db.Numeric(12, 2), nullable=False)
