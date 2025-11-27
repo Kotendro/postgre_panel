@@ -1,6 +1,6 @@
 from sqlalchemy.sql import func
 from sqlalchemy.orm import Mapped, mapped_column
-from datetime import datetime
+from datetime import datetime, date
 
 from . import db
 
@@ -9,9 +9,13 @@ class Employee(db.Model):
     
     id_emp: Mapped[int] = mapped_column(primary_key=True)
     fullname: Mapped[str] = mapped_column(nullable=False)
-    birthday: Mapped[datetime] = mapped_column(db.DateTime(timezone=True), nullable=False)
+    birthday: Mapped[date] = mapped_column(db.Date, nullable=False)
     id_cit: Mapped[int] = mapped_column(db.ForeignKey("citizenship.id_cit"), nullable=False)
     id_edu: Mapped[int] = mapped_column(db.ForeignKey("education.id_edu"), nullable=False)
+    
+    citizenship: Mapped["Citizenship"] = db.relationship()
+    education: Mapped["Education"] = db.relationship()
+    reports: Mapped[list["Report"]] = db.relationship(back_populates="employee")
     
 class Report(db.Model):
     __tablename__ = "report"
@@ -22,6 +26,10 @@ class Report(db.Model):
     id_div: Mapped[int] = mapped_column(db.ForeignKey("division.id_div"), nullable=False)
     id_pos: Mapped[int] = mapped_column(db.ForeignKey("position.id_pos"), nullable=False)
     old_salary: Mapped[float] = mapped_column(db.Numeric(12, 2), nullable=False)
+    
+    division: Mapped["Division"] = db.relationship()
+    position: Mapped["Position"] = db.relationship()
+    employee: Mapped["Employee"] = db.relationship(back_populates="reports")
     
 class Citizenship(db.Model):
     __tablename__ = "citizenship"
