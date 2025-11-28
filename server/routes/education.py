@@ -13,7 +13,7 @@ logger = getLogger()
 @core.route("/")
 def show_list():
     edus = db.session.execute(db.select(Education)).scalars().all()
-    return render_template("education/education_list.html", edus=edus)
+    return render_template("layout/list.html", edus=edus)
 
 @core.route("/add", methods=["GET", "POST"])
 def add():
@@ -28,10 +28,10 @@ def add():
         db.session.commit()
         return redirect(url_for("education.show_list"))
     
-    return render_template("education/education_form.html", form=form)
+    return render_template("layout/add.html", form=form, page_title="Add education", header="Добавить образоване")
 
 @core.route("/edit/<int:id_edu>", methods=["GET", "POST"])
-def edit_form(id_edu: int):
+def edit(id_edu: int):
     edu = db.get_or_404(Education, id_edu)
     form = EducationForm(obj=edu)
 
@@ -41,5 +41,5 @@ def edit_form(id_edu: int):
         db.session.commit()
         return redirect(url_for("education.show_list"))
     
-    return render_template("education/education_form.html", form=form)
+    return render_template("layout/edit.html", form=form, page_title="Edit education", header="Изменить образоване")
     

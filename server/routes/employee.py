@@ -13,7 +13,7 @@ logger = getLogger()
 @core.route("/")
 def show_list():
     emps = db.session.execute(db.select(Employee)).scalars().all()
-    return render_template("employee/employee_list.html", emps=emps)
+    return render_template("layout/list.html", emps=emps)
 
 @core.route("/add", methods=["GET", "POST"])
 def add():
@@ -34,10 +34,10 @@ def add():
         db.session.commit()
         return redirect(url_for("employee.show_list"))
     
-    return render_template("employee/employee_form.html", form=form)
+    return render_template("layout/add.html", form=form, page_title="Add employee", header="Добавить сотрудника")
 
 @core.route("/edit/<int:id_emp>", methods=["GET", "POST"])
-def edit_form(id_emp: int):
+def edit(id_emp: int):
     emp = db.get_or_404(Employee, id_emp)
     form = EmployeeForm(obj=emp)
     
@@ -53,5 +53,5 @@ def edit_form(id_emp: int):
         db.session.commit()
         return redirect(url_for("employee.show_list"))
     
-    return render_template("employee/employee_form.html", form=form)
+    return render_template("layout/edit.html", form=form, page_title="Edit employee", header="Изменить сотрудника")
     

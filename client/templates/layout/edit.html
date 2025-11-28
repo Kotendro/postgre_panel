@@ -1,0 +1,22 @@
+{% extends "layout/base.html" %}
+
+{% block page_title %}
+    {{ page_title }}
+{% endblock%}
+
+{% block main %}
+    <h1> {{ header }}</h1>
+
+    <form method="post">
+        {{ form.hidden_tag() }}
+
+        {% for field in form if field.type != 'CSRFTokenField' %}
+        <div>
+            {{ field.label }}<br>
+            {{ field() }}
+        </div>
+        {% endfor %}
+
+    <button type="submit">Сохранить</button>
+    </form>
+{% endblock %}

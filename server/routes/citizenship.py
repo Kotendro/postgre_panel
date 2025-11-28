@@ -13,7 +13,7 @@ logger = getLogger()
 @core.route("/")
 def show_list():
     cits = db.session.execute(db.select(Citizenship)).scalars().all()
-    return render_template("citizenship/citizenship_list.html", cits=cits)
+    return render_template("layout/list.html", cits=cits)
 
 @core.route("/add", methods=["GET", "POST"])
 def add():
@@ -28,10 +28,10 @@ def add():
         db.session.commit()
         return redirect(url_for("citizenship.show_list"))
     
-    return render_template("citizenship/citizenship_form.html", form=form)
+    return render_template("layout/add.html", form=form, page_title="Add citizenship", header="Добавить гражданство")
 
 @core.route("/edit/<int:id_cit>", methods=["GET", "POST"])
-def edit_form(id_cit: int):
+def edit(id_cit: int):
     cit = db.get_or_404(Citizenship, id_cit)
     form = CitizenshipForm(obj=cit)
 
@@ -41,5 +41,5 @@ def edit_form(id_cit: int):
         db.session.commit()
         return redirect(url_for("citizenship.show_list"))
     
-    return render_template("citizenship/citizenship_form.html", form=form)
+    return render_template("layout/edit.html", form=form, page_title="Edit citizenship", header="Изменить гражданство")
     

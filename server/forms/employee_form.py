@@ -7,4 +7,3 @@ class EmployeeForm(FlaskForm):
     birthday = DateField("День рождения", validators=[DataRequired()])
     id_cit = SelectField("Гражданство", coerce=int, validators=[DataRequired()])
     id_edu = SelectField("Образование", coerce=int, validators=[DataRequired()])
-    submit = SubmitField("Добавить")
