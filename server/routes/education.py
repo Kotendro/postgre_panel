@@ -12,8 +12,18 @@ logger = getLogger()
 
 @core.route("/")
 def show_list():
-    edus = db.session.execute(db.select(Education)).scalars().all()
-    return render_template("layout/list.html", edus=edus)
+    items = db.session.execute(db.select(Education)).scalars().all()
+    return render_template(
+        "layout/list.html",
+        page_title="Education",
+        header="Образования",
+        items=items,
+        column_names=("ID", "Образование"),
+        column_attrs=("id_edu", "name_edu"),
+        pk_attr="id_edu",
+        add_endpoint="education.add",
+        edit_endpoint="education.edit",
+    )
 
 @core.route("/add", methods=["GET", "POST"])
 def add():

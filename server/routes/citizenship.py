@@ -12,8 +12,18 @@ logger = getLogger()
 
 @core.route("/")
 def show_list():
-    cits = db.session.execute(db.select(Citizenship)).scalars().all()
-    return render_template("layout/list.html", cits=cits)
+    items = db.session.execute(db.select(Citizenship)).scalars().all()
+    return render_template(
+        "layout/list.html",
+        page_title="Citizenship",
+        header="Гражданства",
+        items=items,
+        column_names=("ID", "Гражданство"),
+        column_attrs=("id_cit", "name_cit"),
+        pk_attr="id_cit",
+        add_endpoint="citizenship.add",
+        edit_endpoint="citizenship.edit",
+        )
 
 @core.route("/add", methods=["GET", "POST"])
 def add():

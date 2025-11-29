@@ -12,8 +12,8 @@ logger = getLogger()
 
 @core.route("/")
 def show_list():
-    emps = db.session.execute(db.select(Employee)).scalars().all()
-    return render_template("layout/list.html", emps=emps)
+    items = db.session.execute(db.select(Employee)).scalars().all()
+    return render_template("layout/list.html", items=items)
 
 @core.route("/add", methods=["GET", "POST"])
 def add():
