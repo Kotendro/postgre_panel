@@ -18,8 +18,10 @@ def show_list():
         page_title="Education",
         header="Образования",
         items=items,
-        column_names=("ID", "Образование"),
-        column_attrs=("id_edu", "name_edu"),
+        columns={
+            "ID": "id_edu",
+            "Образование": "name_edu"
+        },
         pk_attr="id_edu",
         add_endpoint="education.add",
         edit_endpoint="education.edit",

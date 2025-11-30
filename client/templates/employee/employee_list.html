@@ -16,7 +16,7 @@
                 {% for name, _ in columns.items() %}
                     <td> {{ name }} </td>
                 {% endfor %}
-                <!-- Кнопка Изменить -->
+                <!-- Кнопка Карточка -->
                 <td></td>
             </tr>
         </thead>
@@ -27,7 +27,7 @@
                 {% for _, attr in columns.items()%}
                     <td>{{ item[attr] }}</td>
                 {% endfor %}
-                <td> <a href="{{ url_for(edit_endpoint, **{pk_attr: item[pk_attr]}) }}">Изменить</a> </td>
+                <td> <a href="{{ url_for(detail_endpoint, **{pk_attr: item[pk_attr]}) }}">Карточка</a> </td>
             </tr>
             {% endfor%}
         </tbody>

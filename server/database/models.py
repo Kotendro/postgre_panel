@@ -1,6 +1,6 @@
 from sqlalchemy.sql import func
 from sqlalchemy.orm import Mapped, mapped_column
-from datetime import datetime, date
+from datetime import datetime, date, timezone
 
 from . import db
 
@@ -22,7 +22,8 @@ class Report(db.Model):
     
     id_emp: Mapped[int] = mapped_column(db.ForeignKey("employee.id_emp"), primary_key=True)
     num: Mapped[int] = mapped_column(primary_key=True)
-    date: Mapped[datetime] = mapped_column(db.DateTime(timezone=True), nullable=False)
+    # На postgre можно будет default=func.now()
+    date: Mapped[datetime] = mapped_column(db.DateTime(timezone=True), nullable=False, default=datetime.now(timezone.utc))
     id_div: Mapped[int] = mapped_column(db.ForeignKey("division.id_div"), nullable=False)
     id_pos: Mapped[int] = mapped_column(db.ForeignKey("position.id_pos"), nullable=False)
     old_salary: Mapped[float] = mapped_column(db.Numeric(12, 2), nullable=False)

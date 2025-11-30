@@ -18,8 +18,10 @@ def show_list():
         page_title="Citizenship",
         header="Гражданства",
         items=items,
-        column_names=("ID", "Гражданство"),
-        column_attrs=("id_cit", "name_cit"),
+        columns={
+            "ID": "id_cit",
+            "Гражданство": "name_cit",
+        },
         pk_attr="id_cit",
         add_endpoint="citizenship.add",
         edit_endpoint="citizenship.edit",

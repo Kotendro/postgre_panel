@@ -18,8 +18,11 @@ def show_list():
         page_title="Position",
         header="Должности",
         items=items,
-        column_names=("ID", "Должность", "Оклад"),
-        column_attrs=("id_pos", "name_pos", "salary"),
+        columns={
+            "ID": "id_pos",
+            "Должность": "name_pos",
+            "Оклад": "salary"
+        },
         pk_attr="id_pos",
         add_endpoint="position.add",
         edit_endpoint="position.edit",

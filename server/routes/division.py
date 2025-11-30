@@ -18,8 +18,10 @@ def show_list():
         page_title="Division",
         header="Подразделения",
         items=items,
-        column_names=("ID", "Подразделение"),
-        column_attrs=("id_div", "name_div"),
+        columns={
+            "ID": "id_div",
+            "Подразделение": "name_div"
+        },
         pk_attr="id_div",
         add_endpoint="division.add",
         edit_endpoint="division.edit",

@@ -1,0 +1,59 @@
+{% extends "layout/base.html" %}
+
+{% block page_title %}
+    {{ page_title }}
+{% endblock%}
+
+
+{% block main %}
+    <h1> {{ header }}</h1>
+    
+    <h2> Личная информация </h2>
+    <table>
+        <thead>
+            <tr>
+                {% for name, _ in columns_emp.items() %}
+                    <td> {{ name }} </td>
+                {% endfor %}
+                <!-- Кнопка Изменить -->
+                <td></td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                {% for _, attr in columns_emp.items()%}
+                    <td>{{ employee[attr] }}</td>
+                {% endfor %}
+                <td> <a href="{{ url_for(edit_emp_endpoint, id_emp=employee['id_emp']) }}">Изменить</a> </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2> Записи о приеме и переводах на работу </h2>
+    <a href="{{ url_for(add_rep_endpoint, id_emp=employee['id_emp']) }}">Добавить запись</a>
+    <table>
+        <thead>
+            <tr>
+                {% for name, _ in columns_rep.items() %}
+                    <td> {{ name }} </td>
+                {% endfor %}
+                <!-- Кнопка Изменить -->
+                <td></td>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for report in reports %}
+            <tr>
+                {% for _, attr in columns_rep.items()%}
+                    <td>{{ report[attr] }}</td>
+                {% endfor %}
+
+                <td> <a href="{{ url_for(edit_rep_endpoint, id_emp=employee['id_emp'], num=report['num']) }}">Изменить</a> </td>
+            </tr>
+            {% endfor%}
+        </tbody>
+    </table>
+
+{% endblock %}
