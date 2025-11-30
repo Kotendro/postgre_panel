@@ -4,6 +4,11 @@ from environs import Env
 
 @dataclass
 class DatabaseConfig:
+    CONTAINER_NAME: str
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_DB: str
+    PORT: int
     DATABASE_URI: str
 
 @dataclass
@@ -43,7 +48,16 @@ def load_config():
             SECRET_KEY=env("SECRET_KEY")
         ),
         db=DatabaseConfig(
-            DATABASE_URI = f"sqlite:///{PROJECT_DIR / "server" / "database" / "register.db"}"
+            CONTAINER_NAME=env("CONTAINER_NAME"),
+            POSTGRES_USER=env("POSTGRES_USER"),
+            POSTGRES_PASSWORD=env("POSTGRES_PASSWORD"),
+            POSTGRES_DB=env("POSTGRES_DB"),
+            PORT=env("PORT"),
+            DATABASE_URI=(
+                f"postgresql://{env('POSTGRES_USER')}:"
+                f"{env('POSTGRES_PASSWORD')}@localhost:"
+                f"{env('PORT')}/{env('POSTGRES_DB')}"
+            ),
         ),
         var=Var(
             PER_PAGE=20
