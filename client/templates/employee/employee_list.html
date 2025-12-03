@@ -8,6 +8,8 @@
 {% block main %}
     <h1> {{ header }}</h1>
     
+    <p>Всего сотрудников: {{ total }}.</p>
+
     <a href="{{ url_for(add_endpoint) }}">Добавить</a>
 
     <table>

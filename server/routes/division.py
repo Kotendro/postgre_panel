@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from server.config import load_config
 from ..database import db
 from ..database.models import Division
+from ..database.queries import get_division_show_list
 from ..forms import DivisionForm
 
 core = Blueprint("division", __name__, url_prefix="/division")
@@ -12,7 +13,7 @@ logger = getLogger()
 
 @core.route("/")
 def show_list():
-    items = db.session.execute(db.select(Division)).scalars().all()
+    items = get_division_show_list()
     
     return render_template(
         "layout/list.html",
@@ -21,7 +22,8 @@ def show_list():
         items=items,
         columns={
             "ID": "id_div",
-            "Подразделение": "name_div"
+            "Подразделение": "name_div",
+            "Сотрудников": "emp_count"
         },
         pk_attr="id_div",
         add_endpoint="division.add",

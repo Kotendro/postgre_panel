@@ -31,6 +31,9 @@
     </table>
 
     <h2> Записи о приеме и переводах на работу </h2>
+
+    <p>Всего записей: {{ total_rep }}.</p>
+
     <a href="{{ url_for(add_rep_endpoint, id_emp=employee['id_emp']) }}">Добавить запись</a>
     <table>
         <thead>

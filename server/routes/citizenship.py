@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from server.config import load_config
 from ..database import db
 from ..database.models import Citizenship
+from ..database.queries import get_citizenship_show_list
 from ..forms import CitizenshipForm
 
 core = Blueprint("citizenship", __name__, url_prefix="/citizenship")
@@ -12,7 +13,8 @@ logger = getLogger()
 
 @core.route("/")
 def show_list():
-    items = db.session.execute(db.select(Citizenship)).scalars().all()
+    items = get_citizenship_show_list()
+    
     return render_template(
         "layout/list.html",
         page_title="Citizenship",
@@ -21,6 +23,7 @@ def show_list():
         columns={
             "ID": "id_cit",
             "Гражданство": "name_cit",
+            "Сотрудников": "emp_count",
         },
         pk_attr="id_cit",
         add_endpoint="citizenship.add",

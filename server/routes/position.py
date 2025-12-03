@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from server.config import load_config
 from ..database import db
 from ..database.models import Position
+from ..database.queries import get_position_show_list
 from ..forms import PositionForm
 
 core = Blueprint("position", __name__, url_prefix="/position")
@@ -12,7 +13,8 @@ logger = getLogger()
 
 @core.route("/")
 def show_list():
-    items = db.session.execute(db.select(Position)).scalars().all()
+    items = get_position_show_list()
+    
     return render_template(
         "layout/list.html",
         page_title="Position",
@@ -21,7 +23,8 @@ def show_list():
         columns={
             "ID": "id_pos",
             "Должность": "name_pos",
-            "Оклад": "salary"
+            "Оклад": "salary",
+            "Сотрудников": "emp_count"
         },
         pk_attr="id_pos",
         add_endpoint="position.add",

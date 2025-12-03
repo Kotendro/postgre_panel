@@ -12,8 +12,11 @@ logger = getLogger()
 
 @core.route("/")
 def show_list():
-    employees: list[Employee] = db.session.execute(db.select(Employee)).scalars().all()
-
+    employees: list[Employee] = db.session.execute(
+        db.select(Employee)
+        .order_by(Employee.id_emp)
+    ).scalars().all()
+    
     items = []
     for emp in employees:
         last = None
@@ -34,6 +37,7 @@ def show_list():
         "employee/employee_list.html",
         page_title="Employee",
         header="Сотрудники",
+        total = len(employees),
         items=items,
         columns={
             "ID": "id_emp",
@@ -130,6 +134,7 @@ def detail(id_emp: int):
         header="Карточка сотрудника",
         employee=employee,
         reports=reports,
+        total_rep=len(reports),
         columns_emp={
             "ID": "id_emp",
             "ФИО": "fullname",
