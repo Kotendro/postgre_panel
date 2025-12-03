@@ -38,7 +38,7 @@ def show_list():
         columns={
             "ID": "id_emp",
             "ФИО": "fullname",
-            "День рождения": "birthday",
+            "Дата рождения": "birthday",
             "Гражданство": "name_cit",
             "Образование": "name_edu",
             "Подразделение": "name_div",
@@ -108,7 +108,7 @@ def detail(id_emp: int):
     for report in emp.reports:
         reports.append({
             "num": report.num,
-            "date": report.date,
+            "date": report.date.date(),
             "name_div": report.division.name_div,
             "name_pos": report.position.name_pos,
             "salary": report.position.salary,
@@ -133,7 +133,7 @@ def detail(id_emp: int):
         columns_emp={
             "ID": "id_emp",
             "ФИО": "fullname",
-            "День рождения": "birthday",
+            "Дата рождения": "birthday",
             "Гражданство": "name_cit",
             "Образование": "name_edu",
         },
@@ -149,4 +149,3 @@ def detail(id_emp: int):
         add_rep_endpoint="report.add",
         edit_rep_endpoint="report.edit",
     )
-    

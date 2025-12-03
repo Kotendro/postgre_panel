@@ -13,6 +13,7 @@ logger = getLogger()
 @core.route("/")
 def show_list():
     items = db.session.execute(db.select(Division)).scalars().all()
+    
     return render_template(
         "layout/list.html",
         page_title="Division",

@@ -9,5 +9,8 @@ logger = getLogger()
 
 @core.route("/")
 def index():
-    return render_template("home.html")
+    return render_template(
+        "home.html",
+        header="Домашняя страница"
+    )
 
