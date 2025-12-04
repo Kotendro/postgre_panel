@@ -1,9 +1,5 @@
-from sqlalchemy.dialects import postgresql
 from ..models import Position, Report, Employee
 from .. import db
-from logging import getLogger
-
-logger = getLogger(__name__)
 
 def get_position_show_list():
     
@@ -40,13 +36,7 @@ def get_position_show_list():
         .order_by(Position.id_pos)
     )
     rows = db.session.execute(stmt).all()
-    
-    sql = stmt.compile(
-    dialect=postgresql.dialect(),
-    compile_kwargs={"literal_binds": True}
-    )
-    logger.info(sql)
-    
+
     items = []
     for position, count in rows:
         items.append({

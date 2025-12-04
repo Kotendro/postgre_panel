@@ -1,9 +1,5 @@
-from sqlalchemy.dialects import postgresql
 from ..models import Division, Report, Employee
 from .. import db
-from logging import getLogger
-
-logger = getLogger(__name__)
 
 def get_division_show_list():
     
@@ -40,12 +36,6 @@ def get_division_show_list():
         .order_by(Division.id_div)
     )
     rows = db.session.execute(stmt).all()
-    
-    sql = stmt.compile(
-    dialect=postgresql.dialect(),
-    compile_kwargs={"literal_binds": True}
-    )
-    logger.info(sql)
     
     items = []
     for division, count in rows:

@@ -1,9 +1,5 @@
-from sqlalchemy.dialects import postgresql
 from ..models import Citizenship, Report, Employee
 from .. import db
-from logging import getLogger
-
-logger = getLogger(__name__)
 
 def get_citizenship_show_list():
     items = None
@@ -22,12 +18,6 @@ def get_citizenship_show_list():
     )
     
     rows = db.session.execute(stmt).all()
-    
-    sql = stmt.compile(
-    dialect=postgresql.dialect(),
-    compile_kwargs={"literal_binds": True}
-    )
-    logger.info(sql)
     
     items = []
     for citizenship, count in rows:

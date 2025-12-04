@@ -14,6 +14,7 @@ def create_app() -> Flask:
 
     app.config['SECRET_KEY'] = config.flask.SECRET_KEY
     app.config['SQLALCHEMY_DATABASE_URI'] = config.db.DATABASE_URI
+    app.config["SQLALCHEMY_ECHO"] = True
 
     db.init_app(app)
     with app.app_context():
